@@ -98,7 +98,6 @@ public class PersonneMetierImplTest {
 	@Test
 	public void modifierPersonne() {
 		// given
-
 		Personne pex = new Personne("Mlle", "Bamba", "Kady", "CN00210045");
 		pex.setId(3L);
 		given(personneRepositoryMock.findOne(3L)).willReturn(pex);
@@ -114,8 +113,7 @@ public class PersonneMetierImplTest {
 			e.printStackTrace();
 		}
 		
-		verify(personneRepositoryMock).findOne(3L);
-		verify(personneRepositoryMock, never()).findByNumCni("CN00210045");
+		verify(personneRepositoryMock).findByNumCni("CN00210045");
 		verify(personneRepositoryMock).save(pex);
 		
 		assertThat(ps.getNom()).isEqualTo("Diomandé");
@@ -130,14 +128,14 @@ public class PersonneMetierImplTest {
 		
 		Personne entity = new Personne("Mlle", "Bamba", "Kady", "CN00840070");
 		entity.setId(3L);
-		Personne pex = new Personne("Mlle", "Bamba", "Kady", "CN00210045");
-		pex.setId(3L);
-		given(personneRepositoryMock.findOne(3L)).willReturn(pex);
+		Personne pex = new Personne("Mr", "Coulibaly", "Kassoum", "CN00210045");
+		pex.setId(2L);
+		given(personneRepositoryMock.findByNumCni("CN00210045")).willReturn(pex);
 		
-		Personne persnumCni = new Personne("Mr", "Coulibaly", "Kassoum", "CN00840070");
-		pex.setId(3L);
-		
-		given(personneRepositoryMock.findByNumCni("CN00840070")).willReturn(persnumCni);
+		/*Personne persnumCni = new Personne("Mr", "Coulibaly", "Kassoum", "CN00840070");
+		pex.setId(3L);*/
+		entity.setNumCni("CN00210045");
+//		given(personneRepositoryMock.findByNumCni("CN00840070")).willReturn(persnumCni);
 		given(personneRepositoryMock.save(entity)).willThrow(new RuntimeException("Cet identifiant existe dejà."));
 		
 		//when
@@ -148,8 +146,8 @@ public class PersonneMetierImplTest {
 			e.printStackTrace();
 		}
 		
-		verify(personneRepositoryMock).findOne(3L);
-		verify(personneRepositoryMock).findByNumCni("CN00840070");
+		verify(personneRepositoryMock).findByNumCni("CN00210045");
+//		verify(personneRepositoryMock).findByNumCni("CN00840070");
 		verify(personneRepositoryMock,never()).save(entity);
 		assertThat(ps).isEqualTo(null);
 		

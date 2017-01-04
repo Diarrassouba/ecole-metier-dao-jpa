@@ -23,8 +23,7 @@ public class PersonneMetierImpl implements IPersonneMetier {
 	public Personne creer(Personne entity) throws InvalidPersonneException {
 		if (entity.getNom() == null || entity.getPrenom() == null || entity.getNumCni() == null) {
 			throw new InvalidPersonneException("Le nom, prenom ou numCni ne peut etre null");
-		}
-		;
+		};
 
 		Personne p = personneRepository.findByNumCni(entity.getNumCni());
 		if (p != null)
@@ -35,11 +34,11 @@ public class PersonneMetierImpl implements IPersonneMetier {
 
 	@Override
 	public Personne modifier(Personne entity) throws InvalidPersonneException {
-		Long id = entity.getId();
-		Personne p = find(id);
-		if (entity.getNumCni() != p.getNumCni()) {
-			Personne pnum = chercherParIdentifiantS(entity.getNumCni());
-			if (pnum != null)
+//		Long id = entity.getId();
+		Personne p = personneRepository.findByNumCni(entity.getNumCni());
+		if (entity.getId()!= p.getId()) {
+			/*Personne pnum = chercherParIdentifiantS(entity.getNumCni());
+			if (pnum != null)*/
 				throw new InvalidPersonneException("Cet indentifiant existe dejà.");
 		}
 
