@@ -132,10 +132,7 @@ public class PersonneMetierImplTest {
 		pex.setId(2L);
 		given(personneRepositoryMock.findByNumCni("CN00210045")).willReturn(pex);
 		
-		/*Personne persnumCni = new Personne("Mr", "Coulibaly", "Kassoum", "CN00840070");
-		pex.setId(3L);*/
 		entity.setNumCni("CN00210045");
-//		given(personneRepositoryMock.findByNumCni("CN00840070")).willReturn(persnumCni);
 		given(personneRepositoryMock.save(entity)).willThrow(new RuntimeException("Cet identifiant existe dejà."));
 		
 		//when
@@ -147,7 +144,6 @@ public class PersonneMetierImplTest {
 		}
 		
 		verify(personneRepositoryMock).findByNumCni("CN00210045");
-//		verify(personneRepositoryMock).findByNumCni("CN00840070");
 		verify(personneRepositoryMock,never()).save(entity);
 		assertThat(ps).isEqualTo(null);
 		

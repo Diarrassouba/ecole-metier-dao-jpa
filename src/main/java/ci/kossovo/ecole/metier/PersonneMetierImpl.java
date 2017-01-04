@@ -34,11 +34,9 @@ public class PersonneMetierImpl implements IPersonneMetier {
 
 	@Override
 	public Personne modifier(Personne entity) throws InvalidPersonneException {
-//		Long id = entity.getId();
 		Personne p = personneRepository.findByNumCni(entity.getNumCni());
 		if (entity.getId()!= p.getId()) {
-			/*Personne pnum = chercherParIdentifiantS(entity.getNumCni());
-			if (pnum != null)*/
+			
 				throw new InvalidPersonneException("Cet indentifiant existe dejà.");
 		}
 
