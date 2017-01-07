@@ -21,7 +21,8 @@ public class PersonneMetierImpl implements IPersonneMetier {
 
 	@Override
 	public Personne creer(Personne entity) throws InvalidPersonneException {
-		if (entity.getNom() == null || entity.getPrenom() == null || entity.getNumCni() == null) {
+		if (entity.getNom() == null ||entity.getNom()=="" || entity.getPrenom() == null ||entity.getPrenom()==""
+				|| entity.getNumCni() == null || entity.getNumCni()=="") {
 			throw new InvalidPersonneException("Le nom, prenom ou numCni ne peut etre null");
 		};
 
