@@ -26,9 +26,13 @@ public class PersonneMetierImpl implements IPersonneMetier {
 			throw new InvalidPersonneException("Le nom, prenom ou numCni ne peut etre null");
 		};
 
-		Personne p = personneRepository.findByNumCni(entity.getNumCni());
-		if (p != null)
-			throw new InvalidPersonneException("Cette personne existe dejà.");
+		try {
+			Personne p = personneRepository.findByNumCni(entity.getNumCni());
+			if (p != null)
+				throw new InvalidPersonneException("Cette personne existe dejà.");
+		} catch (Exception e) {
+			throw new InvalidPersonneException("Probleme de connexion db");
+		}
 
 		return personneRepository.save(entity);
 	}
